@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather app</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Today's Weather</h1>
+
+      <div id="input">
+        <input type="text" placeholder="cityname" name="" id="search-bar" />
+        <button id="search-btn">search</button>
+      </div>
+      <h5 ><span id="temp"></span>°c</h5>
+      <p ><span id="city"></span><i class='bx bx-current-location'></i></i></p>
+      <div id="last">
+        Humidity
+        <p id="Humidity"></p>
+        Wind Speed
+        <p id="Wind"></p>
+      </div>
+    </div>
+    <script>
+      var api_key = "6171e3e029c8f77d74cf210a00df8d67";
+      var api_url =
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+      const inputBox = document.getElementById("search-bar");
+      const searchbtn = document.getElementById("search-btn");
+
+      async function checkWeather(city) {
+        const response = await fetch(api_url + city + `&appid=${api_key}`);
+        var data = await response.json();
+
+        console.log(data);
+
+        document.getElementById("city").innerHTML = data.name;
+        document.getElementById("temp").innerHTML = Math.round(data.main.temp);
+        document.getElementById("Humidity").innerHTML =
+          data.main.humidity + "%";
+        document.getElementById("Wind").innerHTML = data.wind.speed + "km / h";
+      }
+
+      searchbtn.addEventListener("click", () => {
+        checkWeather(inputBox.value);
+      });
+    </script>
+  </body>
+</html>
