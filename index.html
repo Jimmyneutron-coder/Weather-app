@@ -5,25 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>weather app</title>
     <link rel="stylesheet" href="styles.css" />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="header">
       <h1>Today's Weather</h1>
-
       <div id="input">
         <input type="text" placeholder="cityname" name="" id="search-bar" />
         <button id="search-btn">search</button>
       </div>
-      <h5 ><span id="temp"></span>°c</h5>
-      <p ><span id="city"></span><i class='bx bx-current-location'></i></i></p>
+      <h5><span id="temp"></span>°c</h5>
+      <p id="city-id">
+        <span id="city"></span
+        ><img
+          id="location"
+          src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-3d-location-icon-clipart-in-transparent-background-vector-png-image_6704161.png"
+          alt=""
+        />
+      </p>
       <div id="last">
-        Humidity
-        <p id="Humidity"></p>
-        Wind Speed
-        <p id="Wind"></p>
+        <span id="last-item"
+          ><p>Humidity</p>
+          <p id="Humidity"></p>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4148/4148460.png"
+            alt=""
+          />
+        </span>
+        <span id="last-item">
+          <p>Wind Speed</p>
+          <p id="Wind"></p>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/5164/5164493.png"
+            alt=""
+          />
+        </span>
       </div>
     </div>
+    <p id="footer">Created By Yash</p>
     <script>
       var api_key = "6171e3e029c8f77d74cf210a00df8d67";
       var api_url =
@@ -36,7 +58,6 @@
         var data = await response.json();
 
         console.log(data);
-
         document.getElementById("city").innerHTML = data.name;
         document.getElementById("temp").innerHTML = Math.round(data.main.temp);
         document.getElementById("Humidity").innerHTML =
@@ -44,8 +65,12 @@
         document.getElementById("Wind").innerHTML = data.wind.speed + "km / h";
       }
 
+      window.onload = function () {
+        checkWeather("Nagpur");
+      };
+
       searchbtn.addEventListener("click", () => {
-        checkWeather(inputBox.value);
+        checkWeather(inputBox.value || "Nagpur");
       });
     </script>
   </body>
